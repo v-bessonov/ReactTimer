@@ -31,6 +31,9 @@ var Controls = React.createClass({
   //     });
   //   },1000);
   // },
+  // componentWillReceiveProps : function(newProps){
+  //   console.log('componentWillRecieveProps', newProps.countdownStatus);
+  // },
   onStatusChange: function(newStatus){
     return () => {
       this.props.onStatusChange(newStatus);
