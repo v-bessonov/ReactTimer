@@ -51,25 +51,28 @@ describe('Countdown', ()=>{
       }, 3001);
     });
 
-  });
-  //
-  //
-  // describe('formatSeconds', ()=>{
-  //   it('should format seconds', ()=> {
-  //     var clock = TestUtils.renderIntoDocument(<Clock/>);
-  //     var seconds = 615;
-  //     var expected = '10:15';
-  //     var actual = clock.formatSeconds(seconds)
-  //     expect(actual).toBe(expected);
-  //   });
-  //
-  //   it('should format seconds when min/sec are less than 10', ()=> {
-  //     var clock = TestUtils.renderIntoDocument(<Clock/>);
-  //     var seconds = 61;
-  //     var expected = '01:01';
-  //     var actual = clock.formatSeconds(seconds)
-  //     expect(actual).toBe(expected);
-  //   });
+    it('should pause countdown on paused status', (done)=> {
+      var countdown = TestUtils.renderIntoDocument(<Countdown />);
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('paused');
+      setTimeout(()=>{
+        expect(countdown.state.count).toBe(3);
+        expect(countdown.state.countdownStatus).toBe('paused');
+        done();
+      }, 1001);
+    });
 
-  //});
+    it('should reset count on stopped', (done)=> {
+      var countdown = TestUtils.renderIntoDocument(<Countdown />);
+      countdown.handleSetCountdown(3);
+      countdown.handleStatusChange('stopped');
+      setTimeout(()=>{
+        expect(countdown.state.count).toBe(0);
+        expect(countdown.state.countdownStatus).toBe('stopped');
+        done();
+      }, 1001);
+    });
+
+  });
+
 });
