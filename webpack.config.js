@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path =  require('path');
 
 module.exports = {
   entry: [
@@ -41,8 +42,40 @@ module.exports = {
       },
       test: /\.jsx?$/,
       exclude: /(node_modules|bower_components)/
-    }]
+    },
+    {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader",
+                options: {
+                    includePaths: [path.resolve(__dirname, './node_modules/foundation-sites/scss')]
+                }
+            }]
+        }
+  ]
+    // rules: [{
+    //         test: /\.scss$/,
+    //         use: [{
+    //             loader: "style-loader"
+    //         }, {
+    //             loader: "css-loader"
+    //         }, {
+    //             loader: "sass-loader",
+    //             options: {
+    //                 includePaths: [path.resolve(__dirname, './node_modules/foundation-sites/dist/scss')]
+    //             }
+    //         }]
+    //     }]
   },
+  // sassLoader : {
+  //   includePaths: [
+  //     path.resolve(__dirname, './node_modules/foundation-sites/dist/scss')
+  //   ]
+  // },
   //devtool : 'inline-source-map'
   devtool : 'cheap-module-eval-source-map'
 
